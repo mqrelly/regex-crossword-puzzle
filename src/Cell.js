@@ -3,10 +3,7 @@ import "./Cell.css";
 
 function Cell(props) {
   if (!props.isWritable) {
-    return (
-      <div className="cell">
-      </div>
-    );
+    return <div className="cell" />;
   }
 
   const gridStyle = {
@@ -20,6 +17,7 @@ function Cell(props) {
         <span className="character">{props.char}</span>
       </div>
       <div className="index">{props.index}</div>
+      {props.isInvalid ? <div className="invalid" /> : null}
     </div>
   );
 }

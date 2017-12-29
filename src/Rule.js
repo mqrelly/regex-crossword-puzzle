@@ -12,10 +12,13 @@ export class Rule {
   }
 
   get id() {
-    return (this.direction === RULE_DIRECTION.Horizontal ? "H" : "V") + this.startIndex;
+    return (
+      (this.direction === RULE_DIRECTION.Horizontal ? "H" : "V") +
+      this.startIndex
+    );
   }
 
-  *positions (rows, cols) {
+  *positions(rows, cols) {
     let i = Math.trunc((this.startIndex - 1) / cols);
     let j = (this.startIndex - 1) % cols;
 
@@ -50,4 +53,3 @@ export class Rule {
     return this.pattern.test(this.getWrittenChars(charGrid));
   }
 }
-
