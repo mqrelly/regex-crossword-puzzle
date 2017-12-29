@@ -1,3 +1,4 @@
+import { createMap } from "./utils";
 import React, { Component } from 'react';
 import './App.css';
 import Grid from "./Grid";
@@ -22,10 +23,14 @@ class App extends Component {
 
     this.ruleMap = constructRuleMap(this.rows, this.cols, this.rules);
 
-    this.chars = new Array(this.rows).fill(new Array(this.cols).fill(null));
+    this.chars = createMap(this.rows, this.cols);
+    this.chars[0][0] = "a";
+    this.chars[0][1] = "l";
+    this.chars[0][2] = "m";
+    this.chars[0][3] = "X";
 
     function constructRuleMap(rows, cols, rules) {
-      const map = new Array(rows).fill(null).map(r => new Array(cols).fill(null).map(c => []));
+      const map = createMap(rows, cols, () => []);
       for (let rule of rules) {
         for(let [i, j, n] of rule.positions(rows, cols)) {
           map[i][j].push({ rule, charPos: n });

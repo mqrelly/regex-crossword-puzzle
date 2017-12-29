@@ -16,7 +16,9 @@ function Cell(props) {
 
   return (
     <div className="cell" style={gridStyle}>
-      <div className="character">{props.char}</div>
+      <div className="input">
+        <span className="character">{props.char}</span>
+      </div>
       <div className="index">{props.index}</div>
     </div>
   );
