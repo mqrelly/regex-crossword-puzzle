@@ -1,0 +1,12 @@
+.ruleList {
+  list-style: none;
+}
+
+.ruleList .key {
+  font-weight: 500;
+  margin-right: 1em;
+}
+
+.ruleList .pattern {
+  font-family: monospace;
+}
