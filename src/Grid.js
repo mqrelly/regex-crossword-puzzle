@@ -10,17 +10,17 @@ function Grid(props) {
       const idx = i * props.cols + j;
       grid[i][j] = (<Cell
         key={idx}
-        index={idx}
+        index={idx + 1}
         row={i}
         col={j}
-        isWritable={true}
+        isWritable={props.ruleMap[i][j].length > 0}
         char={props.chars[i][j]} />);
     }
   }
 
   const gridStyle = {
-    width: `${props.cols * 60}px`,
-    height: `${props.rows * 60}px`
+    width: `${props.cols * props.cellSize}px`,
+    height: `${props.rows * props.cellSize}px`
   };
 
   return (<div className="grid" style={gridStyle}>{grid}</div>);
