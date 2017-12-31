@@ -49,6 +49,9 @@ function handleInputAction(state, action) {
     case InputAction.MoveCaret:
       return moveCaret(state, action);
 
+    case InputAction.EnterChar:
+      return enterChar(state, action);
+
     case InputAction.Delete:
       return doDelete(state);
 
@@ -115,6 +118,37 @@ function backDelete(state) {
     row: state.caretPos[0],
     col: state.caretPos[1] - 1
   });
+}
+
+function setChar(state, { row, col, char }) {
+  if (row < 0 || state.rows <= row ||
+      col < 0 || state.cols <= col ||
+      state.ruleMap[row][col].length === 0
+  ) {
+    return state;
+  }
+
+  const chars = cloneMap(state.chars);
+  chars[row][col] = char;
+
+  return Object.assign({}, state, { chars });
+}
+
+function enterChar(state, action) {
+  if (!state.caretPos) {
+    return state;
+  }
+
+  return moveCaret(
+    setChar(state, {
+      row: state.caretPos[0],
+      col: state.caretPos[1],
+      char: action.char
+    }), {
+      row: state.caretPos[0],
+      col: state.caretPos[1] + 1
+    }
+  );
 }
 
 export const puzzleReducer = composeReducers(

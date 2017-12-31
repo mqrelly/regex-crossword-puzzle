@@ -97,8 +97,15 @@ class Puzzle extends Component {
         event.preventDefault();
         break;
 
+      case "Tab":
+        // Just ignore this key. Let it switch focus to other elements.
+        break;
+
       default:
-      //TODO: Enter letter
+        if (event.key.length === 1) {
+          this.props.store.dispatch({ type: InputAction.EnterChar, char: event.key });
+          event.preventDefault();
+        }
     }
   }
 
