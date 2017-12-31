@@ -2,25 +2,25 @@ import React from "react";
 import { RULE_DIRECTION } from "./Rule.js";
 import "./RuleList.css";
 
-function RuleItem({ rule }) {
+function RuleItem({ rule, isHighlighted }) {
   const key = `${rule.startIndex}${
     rule.direction === RULE_DIRECTION.Horizontal ? "⇨" : "⇩"
   }`;
 
   return (
-    <React.Fragment>
+    <span className={isHighlighted ? "highlighted" : ""}>
       <span className="key">{key}</span>
       <span className="pattern">{rule.pattern.toSource()}</span>
-    </React.Fragment>
+    </span>
   );
 }
 
-function RuleList({ rules }) {
+function RuleList({ rules, selectedRuleId }) {
   return (
     <ul className="ruleList">
       {rules.map(r => (
         <li key={r.id}>
-          <RuleItem rule={r} />
+          <RuleItem rule={r} isHighlighted={r.id === selectedRuleId} />
         </li>
       ))}
     </ul>

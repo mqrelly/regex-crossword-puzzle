@@ -25,3 +25,14 @@ export function composeReducers(...reducers) {
   return (state, action) =>
     reducers.reverse().reduce((s, r) => r(s, action), state);
 }
+
+export function last(iterator) {
+  let lastVal;
+  let it = iterator.next();
+  while (!it.done) {
+    lastVal = it.value;
+    it = iterator.next();
+  }
+
+  return lastVal;
+}

@@ -1,1 +1,11 @@
+.puzzle {
+  position: relative;
+}
 
+.puzzle .highlight {
+  position: absolute;
+  border: dashed 3px orange;
+  border-radius: 10px;
+  box-sizing: border-box;
+  margin: 5px;
+}

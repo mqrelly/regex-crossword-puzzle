@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Grid from "./Grid";
 import RuleList from "./RuleList";
 import { InputAction } from "./PuzzleLogic";
-import { createMap } from "./utils";
+import { createMap, last } from "./utils";
 import "./Puzzle.css";
 
 class Puzzle extends Component {
@@ -35,6 +35,27 @@ class Puzzle extends Component {
       ? this.state.caretPos[0] * this.state.cols + this.state.caretPos[1]
       : null;
 
+    let ruleHighlight = null;
+    if (this.state.selectedRuleId) {
+      const selectedRule = this.state.rules.find(
+        r => r.id === this.state.selectedRuleId
+      );
+      const start = selectedRule.startPosition;
+      const end = last(selectedRule.positions());
+
+      ruleHighlight = (
+        <div
+          className="highlight"
+          style={{
+            left: `${start[1] * this.props.cellSize}px`,
+            top: `${start[0] * this.props.cellSize}px`,
+            width: `${(end[1] - start[1] + 1) * this.props.cellSize - 10}px`,
+            height: `${(end[0] - start[0] + 1) * this.props.cellSize - 10}px`
+          }}
+        />
+      );
+    }
+
     return (
       <div className="puzzle">
         <Grid
@@ -47,7 +68,11 @@ class Puzzle extends Component {
           onFocusChanged={this.handleGridFocus}
           onKeyDown={this.handleGridKeyDown}
         />
-        <RuleList rules={this.state.rules} />
+        {ruleHighlight}
+        <RuleList
+          rules={this.state.rules}
+          selectedRuleId={this.state.selectedRuleId}
+        />
       </div>
     );
   }
@@ -103,7 +128,10 @@ class Puzzle extends Component {
 
       default:
         if (event.key.length === 1) {
-          this.props.store.dispatch({ type: InputAction.EnterChar, char: event.key });
+          this.props.store.dispatch({
+            type: InputAction.EnterChar,
+            char: event.key
+          });
           event.preventDefault();
         }
     }

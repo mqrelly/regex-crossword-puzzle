@@ -94,7 +94,8 @@ function moveCaret(state, { row, col }) {
   }
 
   return Object.assign({}, state, {
-    caretPos: [row, col]
+    caretPos: [row, col],
+    selectedRuleId: state.ruleMap[row][col][0].rule.id
   });
 }
 
@@ -121,9 +122,12 @@ function backDelete(state) {
 }
 
 function setChar(state, { row, col, char }) {
-  if (row < 0 || state.rows <= row ||
-      col < 0 || state.cols <= col ||
-      state.ruleMap[row][col].length === 0
+  if (
+    row < 0 ||
+    state.rows <= row ||
+    col < 0 ||
+    state.cols <= col ||
+    state.ruleMap[row][col].length === 0
   ) {
     return state;
   }
@@ -144,7 +148,8 @@ function enterChar(state, action) {
       row: state.caretPos[0],
       col: state.caretPos[1],
       char: action.char
-    }), {
+    }),
+    {
       row: state.caretPos[0],
       col: state.caretPos[1] + 1
     }
