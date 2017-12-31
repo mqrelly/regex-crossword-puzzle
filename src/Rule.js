@@ -4,9 +4,10 @@ export const RULE_DIRECTION = {
 };
 
 export class Rule {
-  constructor(dir, startIdx, length, pattern) {
+  constructor(dir, startIdx, startPos, length, pattern) {
     this.direction = dir;
     this.startIndex = startIdx;
+    this.startPosition = startPos;
     this.length = length;
     this.pattern = pattern;
   }
@@ -18,9 +19,9 @@ export class Rule {
     );
   }
 
-  *positions(rows, cols) {
-    let i = Math.trunc((this.startIndex - 1) / cols);
-    let j = (this.startIndex - 1) % cols;
+  *positions() {
+    let i = this.startPosition[0];
+    let j = this.startPosition[1];
 
     let step;
     if (this.direction === RULE_DIRECTION.Horizontal) {
@@ -38,11 +39,8 @@ export class Rule {
   }
 
   getWrittenChars(charGrid) {
-    const rows = charGrid.length;
-    const cols = charGrid[0].length;
-
     let str = "";
-    for (let [i, j] of this.positions(rows, cols)) {
+    for (let [i, j] of this.positions()) {
       str += this.charGrid[i][j];
     }
 

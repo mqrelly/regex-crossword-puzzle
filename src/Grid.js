@@ -3,32 +3,47 @@ import React from "react";
 import Cell from "./Cell";
 import "./Grid.css";
 
-function Grid(props) {
-  const grid = createMap(props.rows, props.cols, (i, j) => {
-    const key = i * props.cols + j;
-    const index = props.ruleMap[i][j].some(r => r.charPos === 0)
-      ? key + 1
-      : null;
+function Grid({
+  rows,
+  cols,
+  cellSize,
+  ruleMap,
+  chars,
+  focusedCellId,
+  onFocusChanged,
+  onKeyDown
+}) {
+  const grid = createMap(rows, cols, (i, j) => {
+    const id = i * cols + j;
+    const index = ruleMap[i][j].some(r => r.charPos === 0) ? id + 1 : null;
 
     return (
       <Cell
-        key={key}
+        key={id}
         index={index}
         row={i}
         col={j}
-        isWritable={props.ruleMap[i][j].length > 0}
-        char={props.chars[i][j]}
+        isWritable={ruleMap[i][j].length > 0}
+        isFocused={id === focusedCellId}
+        char={chars[i][j]}
       />
     );
   });
 
   const gridStyle = {
-    width: `${props.cols * props.cellSize}px`,
-    height: `${props.rows * props.cellSize}px`
+    width: `${cols * cellSize}px`,
+    height: `${rows * cellSize}px`
   };
 
   return (
-    <div className="grid" style={gridStyle}>
+    <div
+      className="grid"
+      style={gridStyle}
+      tabIndex="0"
+      onKeyDown={onKeyDown}
+      onFocus={() => onFocusChanged({ gained: true })}
+      onBlur={() => onFocusChanged({ gained: false })}
+    >
       {grid}
     </div>
   );

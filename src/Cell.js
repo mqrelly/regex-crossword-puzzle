@@ -13,10 +13,10 @@ function Cell(props) {
 
   return (
     <div className="cell" style={gridStyle}>
-      <div className="input">
+      <div className={props.isFocused ? "input focused" : "input"}>
         <span className="character">{props.char}</span>
+        <div className="index">{props.index}</div>
       </div>
-      <div className="index">{props.index}</div>
       {props.isInvalid ? <div className="invalid" /> : null}
     </div>
   );
