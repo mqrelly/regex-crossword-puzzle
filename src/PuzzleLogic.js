@@ -1,4 +1,5 @@
 import { cloneMap, composeReducers } from "./utils";
+import { RuleDirection } from "./Rule";
 
 export const PuzzleAction = {
   Reset: "Reset"
@@ -143,6 +144,9 @@ function enterChar(state, action) {
     return state;
   }
 
+  const selectedRule = state.rules.find(r => r.id === state.selectedRuleId);
+  const [i, j] = selectedRule.direction === RuleDirection.Horizontal ? [0, 1] : [1, 0];
+
   return moveCaret(
     setChar(state, {
       row: state.caretPos[0],
@@ -150,8 +154,8 @@ function enterChar(state, action) {
       char: action.char
     }),
     {
-      row: state.caretPos[0],
-      col: state.caretPos[1] + 1
+      row: state.caretPos[0] + i,
+      col: state.caretPos[1] + j
     }
   );
 }
