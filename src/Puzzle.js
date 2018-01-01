@@ -19,6 +19,7 @@ class Puzzle extends Component {
 
     this.handleGridFocus = this.handleGridFocus.bind(this);
     this.handleGridKeyDown = this.handleGridKeyDown.bind(this);
+    this.handleCellClick = this.handleCellClick.bind(this);
   }
 
   componentWillMount() {
@@ -69,6 +70,7 @@ class Puzzle extends Component {
           focusedCellId={focusedCellId}
           onFocusChanged={this.handleGridFocus}
           onKeyDown={this.handleGridKeyDown}
+          onCellClick={this.handleCellClick}
         />
         {ruleHighlight}
         <RuleList
@@ -156,6 +158,12 @@ class Puzzle extends Component {
       ? InputAction.EnterFocus
       : InputAction.LoseFocus;
     this.props.store.dispatch({ type: actionType });
+  }
+
+  handleCellClick(id, row, col) {
+    if (this.state.ruleMap[row][col].length > 0) {
+      this.props.store.dispatch({ type: InputAction.MoveCaret, row, col });
+    }
   }
 
   moveCaret(i, j) {

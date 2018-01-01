@@ -12,7 +12,8 @@ function Grid({
   chars,
   focusedCellId,
   onFocusChanged,
-  onKeyDown
+  onKeyDown,
+  onCellClick
 }) {
   const grid = createMap(rows, cols, (i, j) => {
     const id = i * cols + j;
@@ -30,6 +31,7 @@ function Grid({
         isInvalid={isInvalid}
         isFocused={id === focusedCellId}
         char={chars[i][j]}
+        onClick={() => onCellClick(id, i, j)}
       />
     );
   });
