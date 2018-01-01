@@ -168,10 +168,17 @@ function doDelete(state) {
     return state;
   }
 
-  const chars = cloneMap(state.chars);
-  chars[state.caretPos[0]][state.caretPos[1]] = null;
+  const [row, col] = state.caretPos;
 
-  return Object.assign({}, state, { chars });
+  const chars = cloneMap(state.chars);
+  chars[row][col] = null;
+
+  const ruleStates = Object.assign({}, state.ruleStates);
+  for (let rule of state.ruleMap[row][col].map(r => r.rule)) {
+    ruleStates[rule.id] = rule.evaluate(chars);
+  }
+
+  return Object.assign({}, state, { chars, ruleStates });
 }
 
 function backDelete(state) {
@@ -179,10 +186,15 @@ function backDelete(state) {
     return state;
   }
 
-  return moveCaret(doDelete(state), {
-    row: state.caretPos[0],
-    col: state.caretPos[1] - 1
-  });
+  const dir = state.rules.find(r => r.id === state.selectedRuleId).direction;
+  let [row, col] = state.caretPos;
+  if (dir === RuleDirection.Horizontal) {
+    col -= 1;
+  } else {
+    row -= 1;
+  }
+
+  return moveCaret(doDelete(state), { row, col });
 }
 
 function setChar(state, { row, col, char }) {
@@ -199,7 +211,12 @@ function setChar(state, { row, col, char }) {
   const chars = cloneMap(state.chars);
   chars[row][col] = char;
 
-  return Object.assign({}, state, { chars });
+  const ruleStates = Object.assign({}, state.ruleStates);
+  for (let rule of state.ruleMap[row][col].map(r => r.rule)) {
+    ruleStates[rule.id] = rule.evaluate(chars);
+  }
+
+  return Object.assign({}, state, { chars, ruleStates });
 }
 
 function enterChar(state, action) {

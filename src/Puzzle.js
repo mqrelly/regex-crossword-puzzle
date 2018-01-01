@@ -15,6 +15,7 @@ class Puzzle extends Component {
       this.state.cols,
       this.state.rules
     );
+    this.state.ruleStates = {};
 
     this.handleGridFocus = this.handleGridFocus.bind(this);
     this.handleGridKeyDown = this.handleGridKeyDown.bind(this);
@@ -63,6 +64,7 @@ class Puzzle extends Component {
           cols={this.state.cols}
           cellSize={this.props.cellSize}
           ruleMap={this.state.ruleMap}
+          ruleStates={this.state.ruleStates}
           chars={this.state.chars}
           focusedCellId={focusedCellId}
           onFocusChanged={this.handleGridFocus}

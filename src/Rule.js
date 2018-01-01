@@ -38,16 +38,21 @@ export class Rule {
     }
   }
 
-  getWrittenChars(charGrid) {
+  getWrittenChars(chars) {
     let str = "";
     for (let [i, j] of this.positions()) {
-      str += this.charGrid[i][j];
+      str += chars[i][j];
     }
 
     return str;
   }
 
-  isValid(charGrid) {
-    return this.pattern.test(this.getWrittenChars(charGrid));
+  evaluate(chars) {
+    var val = this.getWrittenChars(chars);
+    if (val.length !== this.length) {
+      return null;
+    }
+
+    return this.pattern.test(val);
   }
 }

@@ -8,6 +8,7 @@ function Grid({
   cols,
   cellSize,
   ruleMap,
+  ruleStates,
   chars,
   focusedCellId,
   onFocusChanged,
@@ -15,7 +16,9 @@ function Grid({
 }) {
   const grid = createMap(rows, cols, (i, j) => {
     const id = i * cols + j;
-    const index = ruleMap[i][j].some(r => r.charPos === 0) ? id + 1 : null;
+    const rules = ruleMap[i][j];
+    const index = rules.some(r => r.charPos === 0) ? id + 1 : null;
+    const isInvalid = rules.some(r => ruleStates[r.rule.id] === false);
 
     return (
       <Cell
@@ -24,6 +27,7 @@ function Grid({
         row={i}
         col={j}
         isWritable={ruleMap[i][j].length > 0}
+        isInvalid={isInvalid}
         isFocused={id === focusedCellId}
         char={chars[i][j]}
       />
