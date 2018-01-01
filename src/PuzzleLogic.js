@@ -9,6 +9,7 @@ export const InputAction = {
   EnterFocus: "EnterFocus",
   LoseFocus: "LoseFocus",
   SelectRule: "SelectRule",
+  ChangeDirection: "ChangeDirection",
   MoveCaret: "MoveCaret",
   EnterChar: "EnterChar",
   Delete: "Delete",
@@ -48,6 +49,9 @@ function handleInputAction(state, action) {
 
     case InputAction.SelectRule:
       return selectRule(state, action);
+
+    case InputAction.ChangeDirection:
+      return changeDirection(state);
 
     case InputAction.MoveCaret:
       return moveCaret(state, action);
@@ -116,6 +120,22 @@ function selectRule(state, { selectedRuleId, forward }) {
     selectedRuleId,
     caretPos
   });
+}
+
+function changeDirection(state) {
+  if (typeof state.selectedRuleId !== "string") {
+    return state;
+  }
+
+  const rules = state.ruleMap[state.caretPos[0]][state.caretPos[1]];
+  if (rules.length < 2) {
+    return state;
+  }
+
+  let idx = rules.findIndex(r => r.rule.id === state.selectedRuleId);
+  idx = idx === rules.length - 1 ? 0 : idx + 1;
+
+  return Object.assign({}, state, { selectedRuleId: rules[idx].rule.id });
 }
 
 function moveCaret(state, { row, col }) {

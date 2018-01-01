@@ -127,10 +127,14 @@ class Puzzle extends Component {
         break;
 
       case "Enter":
-        this.props.store.dispatch({
-          type: InputAction.SelectRule,
-          forward: !event.shiftKey
-        });
+        if (event.ctrlKey) {
+          this.props.store.dispatch({ type: InputAction.ChangeDirection });
+        } else {
+          this.props.store.dispatch({
+            type: InputAction.SelectRule,
+            forward: !event.shiftKey
+          });
+        }
         break;
 
       default:
