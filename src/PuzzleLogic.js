@@ -150,10 +150,12 @@ function moveCaret(state, { row, col }) {
   }
 
   const rules = state.ruleMap[row][col];
+  const currentDir = state.rules.find(r => r.id === state.selectedRuleId)
+    .direction;
   const selectedRuleId =
     rules.findIndex(r => r.rule.id === state.selectedRuleId) > -1
       ? state.selectedRuleId
-      : rules[0].rule.id;
+      : (rules.find(r => r.rule.direction === currentDir) || rules[0]).rule.id;
 
   return Object.assign({}, state, {
     caretPos: [row, col],
