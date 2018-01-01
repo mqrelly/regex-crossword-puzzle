@@ -1,10 +1,10 @@
 import React from "react";
-import { RULE_DIRECTION } from "./Rule.js";
+import { RuleDirection } from "./Rule.js";
 import "./RuleList.css";
 
 function RuleItem({ rule, isHighlighted }) {
   const key = `${rule.startIndex}${
-    rule.direction === RULE_DIRECTION.Horizontal ? "⇨" : "⇩"
+    rule.direction === RuleDirection.Horizontal ? "⇨" : "⇩"
   }`;
 
   return (

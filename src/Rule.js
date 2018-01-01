@@ -1,4 +1,4 @@
-export const RULE_DIRECTION = {
+export const RuleDirection = {
   Horizontal: 0,
   Vertical: 1
 };
@@ -14,7 +14,7 @@ export class Rule {
 
   get id() {
     return (
-      (this.direction === RULE_DIRECTION.Horizontal ? "H" : "V") +
+      (this.direction === RuleDirection.Horizontal ? "H" : "V") +
       this.startIndex
     );
   }
@@ -24,7 +24,7 @@ export class Rule {
     let j = this.startPosition[1];
 
     let step;
-    if (this.direction === RULE_DIRECTION.Horizontal) {
+    if (this.direction === RuleDirection.Horizontal) {
       step = [0, 1];
     } else {
       step = [1, 0];

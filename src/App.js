@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Puzzle from "./Puzzle";
-import { Rule, RULE_DIRECTION } from "./Rule";
+import { Rule, RuleDirection } from "./Rule";
 import { createStore } from "redux";
 import { puzzleReducer, PuzzleAction } from "./PuzzleLogic";
 import { createMap } from "./utils";
@@ -11,12 +11,12 @@ class App extends Component {
     super(props);
 
     const rules = [
-      new Rule(RULE_DIRECTION.Horizontal, 1, [0, 0], 4, /alma/),
-      new Rule(RULE_DIRECTION.Horizontal, 5, [1, 0], 2, /A\d/),
-      new Rule(RULE_DIRECTION.Horizontal, 9, [2, 0], 4, /asdf/),
-      new Rule(RULE_DIRECTION.Vertical, 1, [0, 0], 3, /a{3}/i),
-      new Rule(RULE_DIRECTION.Vertical, 2, [0, 1], 3, /^[^\s]*$/),
-      new Rule(RULE_DIRECTION.Vertical, 4, [0, 3], 3, /aSf/)
+      new Rule(RuleDirection.Horizontal, 1, [0, 0], 4, /alma/),
+      new Rule(RuleDirection.Horizontal, 5, [1, 0], 2, /A\d/),
+      new Rule(RuleDirection.Horizontal, 9, [2, 0], 4, /asdf/),
+      new Rule(RuleDirection.Vertical, 1, [0, 0], 3, /a{3}/i),
+      new Rule(RuleDirection.Vertical, 2, [0, 1], 3, /^[^\s]*$/),
+      new Rule(RuleDirection.Vertical, 4, [0, 3], 3, /aSf/)
     ];
 
     const chars = createMap(3, 4);
