@@ -8,8 +8,7 @@ export const PuzzleAction = {
 export const InputAction = {
   EnterFocus: "EnterFocus",
   LoseFocus: "LoseFocus",
-  NextRule: "NextRule",
-  PreviousRule: "PreviousRule",
+  SelectRule: "SelectRule",
   MoveCaret: "MoveCaret",
   EnterChar: "EnterChar",
   Delete: "Delete",
@@ -47,6 +46,9 @@ function handleInputAction(state, action) {
     case InputAction.LoseFocus:
       return loseFocus(state);
 
+    case InputAction.SelectRule:
+      return selectRule(state, action);
+
     case InputAction.MoveCaret:
       return moveCaret(state, action);
 
@@ -81,6 +83,39 @@ function enterFocus(state) {
 
 function loseFocus(state) {
   return Object.assign({}, state, { isFocused: false });
+}
+
+function selectRule(state, { selectedRuleId, forward }) {
+  let selectedRule;
+
+  if (typeof forward === "boolean") {
+    let idx = state.rules.findIndex(r => r.id === state.selectedRuleId);
+    if (forward) {
+      idx = idx === state.rules.length - 1 ? 0 : idx + 1;
+    } else {
+      idx = idx === 0 ? state.rules.length - 1 : idx - 1;
+    }
+    selectedRule = state.rules[idx];
+    selectedRuleId = selectedRule.id;
+  } else {
+    selectedRule = state.rules.find(r => r.id === selectedRuleId);
+    if (!selectedRule) {
+      return state;
+    }
+  }
+
+  let caretPos;
+  for (let [i, j] of selectedRule.positions()) {
+    caretPos = [i, j];
+    if (state.chars[i][j] === null || state.chars[i][j] === undefined) {
+      break;
+    }
+  }
+
+  return Object.assign({}, state, {
+    selectedRuleId,
+    caretPos
+  });
 }
 
 function moveCaret(state, { row, col }) {

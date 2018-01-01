@@ -126,6 +126,13 @@ class Puzzle extends Component {
         // Just ignore this key. Let it switch focus to other elements.
         break;
 
+      case "Enter":
+        this.props.store.dispatch({
+          type: InputAction.SelectRule,
+          forward: !event.shiftKey
+        });
+        break;
+
       default:
         if (event.key.length === 1) {
           this.props.store.dispatch({
