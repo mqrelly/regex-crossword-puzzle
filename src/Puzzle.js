@@ -73,6 +73,7 @@ class Puzzle extends Component {
         {ruleHighlight}
         <RuleList
           rules={this.state.rules}
+          ruleStates={this.state.ruleStates}
           selectedRuleId={this.state.selectedRuleId}
         />
       </div>
