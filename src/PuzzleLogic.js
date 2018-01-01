@@ -94,9 +94,15 @@ function moveCaret(state, { row, col }) {
     return state;
   }
 
+  const rules = state.ruleMap[row][col];
+  const selectedRuleId =
+    rules.findIndex(r => r.rule.id === state.selectedRuleId) > -1
+      ? state.selectedRuleId
+      : rules[0].rule.id;
+
   return Object.assign({}, state, {
     caretPos: [row, col],
-    selectedRuleId: state.ruleMap[row][col][0].rule.id
+    selectedRuleId
   });
 }
 
@@ -145,7 +151,8 @@ function enterChar(state, action) {
   }
 
   const selectedRule = state.rules.find(r => r.id === state.selectedRuleId);
-  const [i, j] = selectedRule.direction === RuleDirection.Horizontal ? [0, 1] : [1, 0];
+  const [i, j] =
+    selectedRule.direction === RuleDirection.Horizontal ? [0, 1] : [1, 0];
 
   return moveCaret(
     setChar(state, {
