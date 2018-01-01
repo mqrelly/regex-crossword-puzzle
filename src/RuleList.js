@@ -2,7 +2,7 @@ import React from "react";
 import { RuleDirection } from "./Rule.js";
 import "./RuleList.css";
 
-function RuleListItem({ rule, isValid, isHighlighted }) {
+function RuleListItem({ rule, isValid, isHighlighted, onClick }) {
   const key = `${rule.startIndex}${
     rule.direction === RuleDirection.Horizontal ? "⇨" : "⇩"
   }`;
@@ -15,14 +15,14 @@ function RuleListItem({ rule, isValid, isHighlighted }) {
   }
 
   return (
-    <span className={classes.join(" ")}>
+    <span className={classes.join(" ")} onClick={() => onClick(rule.id)}>
       <span className="key">{key}</span>
       <span className="pattern">{rule.pattern.toSource()}</span>
     </span>
   );
 }
 
-function RuleList({ rules, ruleStates, selectedRuleId }) {
+function RuleList({ rules, ruleStates, selectedRuleId, onRuleClick }) {
   return (
     <ul className="ruleList">
       {rules.map(r => (
@@ -31,6 +31,7 @@ function RuleList({ rules, ruleStates, selectedRuleId }) {
             rule={r}
             isValid={ruleStates[r.id]}
             isHighlighted={r.id === selectedRuleId}
+            onClick={onRuleClick}
           />
         </li>
       ))}

@@ -13,7 +13,8 @@ function Grid({
   focusedCellId,
   onFocusChanged,
   onKeyDown,
-  onCellClick
+  onCellClick,
+  onElementSet = () => {}
 }) {
   const grid = createMap(rows, cols, (i, j) => {
     const id = i * cols + j;
@@ -49,6 +50,7 @@ function Grid({
       onKeyDown={onKeyDown}
       onFocus={() => onFocusChanged({ gained: true })}
       onBlur={() => onFocusChanged({ gained: false })}
+      ref={elem => onElementSet(elem)}
     >
       {grid}
     </div>

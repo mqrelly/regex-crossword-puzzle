@@ -20,6 +20,7 @@ class Puzzle extends Component {
     this.handleGridFocus = this.handleGridFocus.bind(this);
     this.handleGridKeyDown = this.handleGridKeyDown.bind(this);
     this.handleCellClick = this.handleCellClick.bind(this);
+    this.handleRuleClick = this.handleRuleClick.bind(this);
   }
 
   componentWillMount() {
@@ -71,12 +72,14 @@ class Puzzle extends Component {
           onFocusChanged={this.handleGridFocus}
           onKeyDown={this.handleGridKeyDown}
           onCellClick={this.handleCellClick}
+          onElementSet={el => (this.gridElement = el)}
         />
         {ruleHighlight}
         <RuleList
           rules={this.state.rules}
           ruleStates={this.state.ruleStates}
           selectedRuleId={this.state.selectedRuleId}
+          onRuleClick={this.handleRuleClick}
         />
       </div>
     );
@@ -164,6 +167,14 @@ class Puzzle extends Component {
     if (this.state.ruleMap[row][col].length > 0) {
       this.props.store.dispatch({ type: InputAction.MoveCaret, row, col });
     }
+  }
+
+  handleRuleClick(id) {
+    this.props.store.dispatch({
+      type: InputAction.SelectRule,
+      selectedRuleId: id
+    });
+    this.gridElement.focus();
   }
 
   moveCaret(i, j) {

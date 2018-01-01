@@ -5,6 +5,10 @@
   padding-left: 0;
 }
 
+.ruleList .ruleListItem {
+  cursor: pointer;
+}
+
 .ruleList .key {
   background: #404040;
   color: #f0f0f0;
