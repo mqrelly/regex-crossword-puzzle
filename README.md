@@ -32,9 +32,9 @@ Under the [GNU General Public License v3][5] (or see LICENSE.txt file).
 The project was bootstrapped with [Create React App][2].
 
 
-[0]: https://react.js.org ReactJS homepage
-[1]: http://es6-features.org/#Constants New features of ECMAScript 6
-[2]: https://github.com/facebookincubator/create-react-app Create React App
-[3]: https://en.wikipedia.org/wiki/Crossword Crossword - Wikipedia
-[4]: https://en.wikipedia.org/wiki/Regular_expression Regular expression - Wikipedia
-[5]: https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
+[0]: https://react.js.org "ReactJS homepage"
+[1]: http://es6-features.org/#Constants "New features of ECMAScript 6"
+[2]: https://github.com/facebookincubator/create-react-app "Create React App"
+[3]: https://en.wikipedia.org/wiki/Crossword "Crossword - Wikipedia"
+[4]: https://en.wikipedia.org/wiki/Regular_expression "Regular expression - Wikipedia"
+[5]: https://www.gnu.org/licenses/gpl-3.0.en.html "GNU General Public License v3.0"
