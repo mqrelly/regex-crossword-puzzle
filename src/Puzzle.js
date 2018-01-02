@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Grid from "./Grid";
 import RuleList from "./RuleList";
 import { InputAction } from "./PuzzleLogic";
-import { createMap, last } from "./utils";
+import { last } from "./utils";
 import "./Puzzle.css";
 
 class Puzzle extends Component {
@@ -10,12 +10,6 @@ class Puzzle extends Component {
     super(props);
 
     this.state = this.props.store.getState();
-    this.state.ruleMap = this.constructRuleMap(
-      this.state.rows,
-      this.state.cols,
-      this.state.rules
-    );
-    this.state.ruleStates = {};
 
     this.handleGridFocus = this.handleGridFocus.bind(this);
     this.handleGridKeyDown = this.handleGridKeyDown.bind(this);
@@ -83,17 +77,6 @@ class Puzzle extends Component {
         />
       </div>
     );
-  }
-
-  constructRuleMap(rows, cols, rules) {
-    const map = createMap(rows, cols, () => []);
-    for (let rule of rules) {
-      for (let [i, j, n] of rule.positions(rows, cols)) {
-        map[i][j].push({ rule, charPos: n });
-      }
-    }
-
-    return map;
   }
 
   handleGridKeyDown(event) {

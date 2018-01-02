@@ -3,7 +3,6 @@ import Puzzle from "./Puzzle";
 import { Rule, RuleDirection } from "./Rule";
 import { createStore } from "redux";
 import { puzzleReducer, PuzzleAction } from "./PuzzleLogic";
-import { createMap } from "./utils";
 import "./App.css";
 
 class App extends Component {
@@ -19,20 +18,11 @@ class App extends Component {
       new Rule(RuleDirection.Vertical, 4, [0, 3], 3, /aSf/)
     ];
 
-    const chars = createMap(3, 4);
-    chars[0][0] = "a";
-    chars[0][1] = "l";
-    chars[0][2] = "m";
-    chars[0][3] = "X";
-
     this.store = createStore(puzzleReducer);
     this.store.dispatch({
       type: PuzzleAction.Reset,
       state: {
-        rows: 3,
-        cols: 4,
-        rules,
-        chars
+        rules
       }
     });
   }

@@ -1,5 +1,11 @@
-import { cloneMap, composeReducers } from "./utils";
+import { createMap, cloneMap, composeReducers } from "./utils";
 import { RuleDirection } from "./Rule";
+
+export class PuzzleException {
+  constructor(msg) {
+    this.message = msg;
+  }
+}
 
 export const PuzzleAction = {
   Reset: "Reset"
@@ -22,21 +28,83 @@ function handlePuzzleAction(state, action) {
   }
 
   switch (action.type) {
-    case PuzzleAction.Reset: {
-      let newState = Object.assign({}, action.state, {
-        isFocused: state.isFocused
-      });
-
-      if (state.isFocused) {
-        newState = handleInputAction(newState, InputAction.EnterFocus);
-      }
-
-      return newState;
-    }
+    case PuzzleAction.Reset:
+      return resetPuzzle(state, action.state);
 
     default:
       return state;
   }
+}
+
+function resetPuzzle(oldState, newState) {
+  newState = Object.assign({}, newState);
+
+  if (!newState.rules) {
+    throw new PuzzleException("Missing rules.");
+  }
+
+  if (typeof newState.rows !== "number") {
+    newState.rows =
+      Math.max.apply(
+        Math,
+        newState.rules.map(
+          r =>
+            r.startPosition[0] +
+            (r.direction === RuleDirection.Vertical ? r.length - 1 : 0)
+        )
+      ) + 1;
+  }
+
+  if (typeof newState.cols !== "number") {
+    newState.cols =
+      Math.max.apply(
+        Math,
+        newState.rules.map(
+          r =>
+            r.startPosition[1] +
+            (r.direction === RuleDirection.Horizontal ? r.length - 1 : 0)
+        )
+      ) + 1;
+  }
+
+  if (!newState.ruleMap) {
+    newState.ruleMap = constructRuleMap(
+      newState.rows,
+      newState.cols,
+      newState.rules
+    );
+  }
+
+  if (!newState.chars) {
+    newState.chars = createMap(newState.rows, newState.cols);
+  }
+
+  if (!newState.ruleStates) {
+    newState.ruleStates = {};
+    for (let rule of newState.rules) {
+      newState.ruleStates[rule.id] = rule.evaluate(newState.chars);
+    }
+  }
+
+  if (oldState.isFocused) {
+    // This sets selectedRuleId and caretPos consistently.
+    newState = handleInputAction(newState, InputAction.EnterFocus);
+  } else {
+    newState.isFocused = false;
+  }
+
+  return newState;
+}
+
+function constructRuleMap(rows, cols, rules) {
+  const map = createMap(rows, cols, () => []);
+  for (let rule of rules) {
+    for (let [i, j, n] of rule.positions(rows, cols)) {
+      map[i][j].push({ rule, charPos: n });
+    }
+  }
+
+  return map;
 }
 
 function handleInputAction(state, action) {
