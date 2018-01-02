@@ -4,36 +4,3 @@
   font-size: 16px;
   padding-left: 0;
 }
-
-.ruleList .ruleListItem {
-  cursor: pointer;
-}
-
-.ruleList .key {
-  background: #404040;
-  color: #f0f0f0;
-  padding: 0.5em;
-  border-radius: 2em;
-  font-weight: 500;
-  margin-right: 1em;
-}
-
-.ruleList .pattern {
-  font-family: monospace;
-}
-
-.ruleList .highlighted .pattern {
-  border: dashed 3px orange;
-  border-radius: 5px;
-  padding: 5px 10px;
-  margin-left: -10px;
-}
-
-.ruleList .valid .key {
-  background-color: #83e983;
-  color: #303030;
-}
-
-.ruleList .invalid .key {
-  background-color: #ff8080;
-}

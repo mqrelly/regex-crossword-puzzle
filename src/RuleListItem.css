@@ -1,0 +1,32 @@
+.ruleListItem {
+  cursor: pointer;
+}
+
+.ruleListItem .key {
+  background: #404040;
+  color: #f0f0f0;
+  padding: 0.5em;
+  border-radius: 2em;
+  font-weight: 500;
+  margin-right: 1em;
+}
+
+.ruleListItem .pattern {
+  font-family: monospace;
+}
+
+.ruleListItem.highlighted .pattern {
+  border: dashed 3px orange;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-left: -10px;
+}
+
+.ruleListItem.valid .key {
+  background-color: #83e983;
+  color: #303030;
+}
+
+.ruleListItem.invalid .key {
+  background-color: #ff8080;
+}
