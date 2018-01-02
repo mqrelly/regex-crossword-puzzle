@@ -80,8 +80,6 @@ class Puzzle extends Component {
   }
 
   handleGridKeyDown(event) {
-    console.log(`key: ${event.key}, keyCode: ${event.keyCode}`);
-
     switch (event.key) {
       case "ArrowUp":
         this.props.store.dispatch(this.moveCaret(-1, 0));
