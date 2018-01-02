@@ -14,6 +14,11 @@ filled by answering a trivia-question, but by satisfying a [regular
 expression][4]. Otherwise the rules are the same.
 
 
+## License
+
+Under the [GNU General Public License v3][5] (or see LICENSE.txt file).
+
+
 ## ToDo
 
 - Organize files in `src/` directory.
@@ -32,3 +37,4 @@ The project was bootstrapped with [Create React App][2].
 [2]: https://github.com/facebookincubator/create-react-app Create React App
 [3]: https://en.wikipedia.org/wiki/Crossword Crossword - Wikipedia
 [4]: https://en.wikipedia.org/wiki/Regular_expression Regular expression - Wikipedia
+[5]: https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
