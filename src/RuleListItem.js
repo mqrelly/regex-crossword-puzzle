@@ -3,9 +3,7 @@ import { RuleDirection } from "./Rule";
 import "./RuleListItem.css";
 
 function RuleListItem({ rule, isValid, isHighlighted, onClick }) {
-  const key = `${rule.startIndex}${
-    rule.direction === RuleDirection.Horizontal ? "⇨" : "⇩"
-  }`;
+  const key = rule.direction === RuleDirection.Horizontal ? "▶" : "▼";
 
   let classes = ["ruleListItem"];
   if (typeof isValid === "boolean") {
@@ -17,7 +15,7 @@ function RuleListItem({ rule, isValid, isHighlighted, onClick }) {
 
   return (
     <span className={classes.join(" ")} onClick={() => onClick(rule.id)}>
-      <span className="key">{key}</span>
+      <span className="key">{rule.startIndex} {key}</span>
       <span className="pattern">{rule.pattern.toSource()}</span>
     </span>
   );
