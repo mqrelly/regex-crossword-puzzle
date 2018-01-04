@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Grid from "./Grid";
 import RuleList from "./RuleList";
 import { InputAction } from "./PuzzleLogic";
-import { last } from "./utils";
 import "./Puzzle.css";
 
 class Puzzle extends Component {
@@ -32,26 +31,9 @@ class Puzzle extends Component {
       ? this.state.caretPos[0] * this.state.cols + this.state.caretPos[1]
       : null;
 
-    let ruleHighlight = null;
-    if (this.state.selectedRuleId) {
-      const selectedRule = this.state.rules.find(
-        r => r.id === this.state.selectedRuleId
-      );
-      const start = selectedRule.startPosition;
-      const end = last(selectedRule.positions());
-
-      ruleHighlight = (
-        <div
-          className="highlight"
-          style={{
-            left: `${start[1] * this.props.cellSize}px`,
-            top: `${start[0] * this.props.cellSize}px`,
-            width: `${(end[1] - start[1] + 1) * this.props.cellSize - 10}px`,
-            height: `${(end[0] - start[0] + 1) * this.props.cellSize - 10}px`
-          }}
-        />
-      );
-    }
+    const selectedRule = this.state.rules.find(
+      r => r.id === this.state.selectedRuleId
+    );
 
     return (
       <div className="puzzle">
@@ -62,13 +44,13 @@ class Puzzle extends Component {
           ruleMap={this.state.ruleMap}
           ruleStates={this.state.ruleStates}
           chars={this.state.chars}
+          selectedRule={selectedRule}
           focusedCellId={focusedCellId}
           onFocusChanged={this.handleGridFocus}
           onKeyDown={this.handleGridKeyDown}
           onCellClick={this.handleCellClick}
           onElementSet={el => (this.gridElement = el)}
         />
-        {ruleHighlight}
         <RuleList
           rules={this.state.rules}
           ruleStates={this.state.ruleStates}

@@ -12,7 +12,7 @@ function RuleListItem({ rule, isValid, isHighlighted, onClick }) {
     classes.push(isValid ? "valid" : "invalid");
   }
   if (isHighlighted) {
-    classes.push("highlighted");
+    classes.push("highlight");
   }
 
   return (

@@ -1,6 +1,7 @@
 import { createMap } from "./utils";
 import React from "react";
 import Cell from "./Cell";
+import GridRuleHighlight from "./GridRuleHighlight";
 import "./Grid.css";
 
 function Grid({
@@ -10,6 +11,7 @@ function Grid({
   ruleMap,
   ruleStates,
   chars,
+  selectedRule,
   focusedCellId,
   onFocusChanged,
   onKeyDown,
@@ -53,6 +55,7 @@ function Grid({
       ref={elem => onElementSet(elem)}
     >
       {grid}
+      <GridRuleHighlight selectedRule={selectedRule} />
     </div>
   );
 }
