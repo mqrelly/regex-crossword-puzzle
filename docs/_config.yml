@@ -1,0 +1,13 @@
+# Site settings
+title: Regex Crossword Puzzle - Demo
+email: mqrelly@gmail.com
+baseurl: "/regex-crossword-puzzle"
+url: "https://mqrelly.github.io/"
+project_url: https://github.com/mqrelly/regex-crossword-puzzle
+lang: en
+
+# Build settings
+markdown: kramdown
+exclude:
+  - Gemfile
+  - Gemfile.lock

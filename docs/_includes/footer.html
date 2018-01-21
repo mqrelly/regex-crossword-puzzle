@@ -1,0 +1,24 @@
+<footer class="site-footer">
+
+  <div class="wrapper">
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          {% if site.email %}
+          <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+          {% endif %}
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <ul class="social-media-list">
+          <li>
+            <a href="{{ site.project_url }}"><span class="icon icon--github">{% include icon-github.svg %}</span><span class="username">Regex Crossword Puzzle project</span></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+</footer>

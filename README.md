@@ -14,6 +14,12 @@ filled by answering a trivia-question, but by satisfying a [regular
 expression][4]. Otherwise the rules are the same.
 
 
+## Demo
+
+There is a [demo site](https://mqrelly.github.io/regex-crossword-puzzle) with
+a very basic puzzle to test out the component.
+
+
 ## License
 
 Under the [GNU General Public License v3][5] (or see LICENSE.txt file).
@@ -21,12 +27,12 @@ Under the [GNU General Public License v3][5] (or see LICENSE.txt file).
 
 ## ToDo
 
-- Organize files in `src/` directory.
-- Create a GitHub page for the project for instant demo
-- Load a new puzzle from an URL (puzzle format JSON)
-- Load a new puzzle from a JSON file
-- Add Undo/redo capabilities
-- Save/restore (half)filled out puzzles to/from LocalStorage.
+- [ ] Organize files in `src/` directory.
+- [x] Create a GitHub page for the project for instant demo
+- [ ] Load a new puzzle from an URL (puzzle format JSON)
+- [ ] Load a new puzzle from a JSON file
+- [ ] Add Undo/redo capabilities
+- [ ] Save/restore (half)filled out puzzles to/from LocalStorage.
 
 
 The project was bootstrapped with [Create React App][2].
