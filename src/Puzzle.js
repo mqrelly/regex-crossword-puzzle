@@ -40,7 +40,6 @@ class Puzzle extends Component {
         <Grid
           rows={this.state.rows}
           cols={this.state.cols}
-          cellSize={this.props.cellSize}
           ruleMap={this.state.ruleMap}
           ruleStates={this.state.ruleStates}
           chars={this.state.chars}

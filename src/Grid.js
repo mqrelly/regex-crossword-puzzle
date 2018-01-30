@@ -7,7 +7,6 @@ import "./Grid.css";
 function Grid({
   rows,
   cols,
-  cellSize,
   ruleMap,
   ruleStates,
   chars,
@@ -39,24 +38,20 @@ function Grid({
     );
   });
 
-  const gridStyle = {
-    width: `${cols * cellSize}px`,
-    height: `${rows * cellSize}px`
-  };
-
   return (
-    <div
-      className="grid"
-      style={gridStyle}
-      tabIndex="0"
-      onKeyDown={onKeyDown}
-      onFocus={() => onFocusChanged({ gained: true })}
-      onBlur={() => onFocusChanged({ gained: false })}
-      ref={elem => onElementSet(elem)}
-    >
-      {grid}
-      <GridRuleHighlight selectedRule={selectedRule} />
-    </div>
+    <div className="gridContainer">
+      <div
+        className="grid"
+        tabIndex="0"
+        onKeyDown={onKeyDown}
+        onFocus={() => onFocusChanged({ gained: true })}
+        onBlur={() => onFocusChanged({ gained: false })}
+        ref={elem => onElementSet(elem)}
+      >
+        {grid}
+        <GridRuleHighlight selectedRule={selectedRule} />
+      </div>
+      </div>
   );
 }
 

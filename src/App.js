@@ -31,7 +31,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1>RegEx Corssword Puzzle</h1>
-        <Puzzle cellSize={80} store={this.store} />
+        <Puzzle store={this.store} />
       </div>
     );
   }

@@ -1,5 +1,9 @@
+.gridContainer {
+  width: fit-content;
+}
+
 .grid {
   display: grid;
-  justify-items: stretch;
-  align-items: stretch;
+  grid-auto-columns: min-content;
+  grid-auto-rows: min-content;
 }
